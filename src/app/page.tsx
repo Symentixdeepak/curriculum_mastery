@@ -647,13 +647,13 @@ export default function Home() {
               <div className="flex flex-col lg:flex-row gap-8">
                 <div className="lg:w-80 flex flex-col gap-6">
                   {/* Image */}
-                  <div className="rounded-2xl overflow-hidden">
+                  <div className="rounded-2xl overflow-hidden mt-[6px]">
                     <Image
                       src="/assets/pratik.jpg"
                       alt="Pratik Kulgod - Head of Music at Singapore International School"
                       width={320}
-                      height={320}
-                      className="w-full h-80 object-cover"
+                      height={440}
+                      className="w-full h-[440px] object-cover"
                       priority
                     />
                   </div>
@@ -762,8 +762,8 @@ export default function Home() {
 
                 {/* Text Content */}
                 <div className="flex-1">
-                  <div className="space-y-4 text-gray-700">
-                    <p className="text-base leading-relaxed text-justify">
+                  <div className="space-y-6 text-gray-700 h-[500px] flex flex-col justify-between">
+                    <p className="text-lg leading-relaxed text-justify">
                       With over <strong>14 years of experience</strong> in music
                       education and performance, Pratik Kulgod brings passion
                       and expertise to the field of music. He currently serves
@@ -776,7 +776,7 @@ export default function Home() {
                       interschool music competition called Conzert, hosted by
                       his school.
                     </p>
-                    <p className="text-base leading-relaxed text-justify">
+                    <p className="text-lg leading-relaxed text-justify">
                       A dedicated drummer and educator, he holds a{" "}
                       <strong>PGCE from the University of Warwick</strong> and
                       earned a{" "}
@@ -789,7 +789,7 @@ export default function Home() {
                       his rhythmic vocabulary through konnakol training with
                       percussion maestro Viveick Rajagopalan.
                     </p>
-                    <p className="text-base leading-relaxed text-justify">
+                    <p className="text-lg leading-relaxed text-justify">
                       Beyond the classroom, Pratik has actively supported music
                       teachers for the past six years - both independently and
                       as an{" "}

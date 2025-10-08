@@ -17,12 +17,7 @@ export const metadata: Metadata = {
   title: "Curriculum Mastery - IB & IGCSE Music Educators Course",
   description:
     "Master the skills to teach IB & IGCSE Music with confidence. Real-world training for music educators with hands-on tools, expert guidance, and curriculum support.",
-  icons: {
-    icon: [
-  
-      { url: '/assets/favicon.ico', sizes: 'any' }
-    ],
-  },
+
 };
 
 export default function RootLayout({
