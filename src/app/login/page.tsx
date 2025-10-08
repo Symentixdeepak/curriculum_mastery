@@ -79,7 +79,7 @@ export default function LoginPage() {
       <div className="flex w-full items-center justify-between pl-4 pr-2 py-2 sm:pl-6 sm:pr-3 sm:py-3">
         <Link href="/" className="flex items-center gap-1 hover:opacity-90 transition-opacity">
           <Image 
-            src="/assets/Curriculum Mastery Logo Small (1).png" 
+            src="/assets/curriculum-mastery-logo-small.png" 
             alt="Curriculum Mastery Logo" 
             width={288} 
             height={288} 

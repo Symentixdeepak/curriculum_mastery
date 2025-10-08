@@ -3,6 +3,15 @@
 import { useState, Suspense } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
+import Image from "next/image"
+import { z } from "zod"
+
+const registerSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+  name: z.string().min(1),
+})
 
 function RegisterForm() {
   const router = useRouter()
@@ -18,11 +27,19 @@ function RegisterForm() {
     e.preventDefault()
     setError(null)
     setLoading(true)
+    
     try {
+      // Validate form data with Zod
+      const validatedData = registerSchema.parse({
+        email,
+        password,
+        name,
+      })
+
       const res = await fetch("/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name || undefined, email, password }),
+        body: JSON.stringify(validatedData),
       })
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
@@ -38,72 +55,117 @@ function RegisterForm() {
         router.push("/dashboard");
       }
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Something went wrong")
+      if (err instanceof z.ZodError) {
+        const firstError = err.issues[0]
+        setError(firstError.message)
+      } else {
+        setError(err instanceof Error ? err.message : "Something went wrong")
+      }
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <main className="mx-auto max-w-md p-6">
-      <h1 className="text-2xl font-semibold">Register</h1>
-      <p className="mt-2 text-gray-600">Create your account.</p>
-
-      <form onSubmit={onSubmit} className="mt-6 space-y-4">
-        <div>
-          <label className="block text-sm font-medium">Name</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full rounded-md border px-3 py-2 outline-none focus:ring"
-          />
+    <form onSubmit={onSubmit} className="mt-8 space-y-6">
+      <div>
+        <label className="block text-sm font-medium text-brand-primary mb-2">Name</label>
+        <input
+          type="text"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full rounded-xl border-2 border-brand-neutral-light px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-colors"
+          placeholder="Enter your name"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-brand-primary mb-2">Email Address</label>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full rounded-xl border-2 border-brand-neutral-light px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-colors"
+          placeholder="Enter your email"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-brand-primary mb-2">Password</label>
+        <input
+          type="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full rounded-xl border-2 border-brand-neutral-light px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-colors"
+          placeholder="Enter your password"
+        />
+      </div>
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-800" role="alert">
+          {error}
         </div>
-        <div>
-          <label className="block text-sm font-medium">Email</label>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-md border px-3 py-2 outline-none focus:ring"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Password</label>
-          <input
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-md border px-3 py-2 outline-none focus:ring"
-          />
-        </div>
-        {error && (
-          <div className="text-sm text-red-600" role="alert">
-            {error}
-          </div>
-        )}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
-        >
-          {loading ? "Creating account..." : "Create account"}
-        </button>
-      </form>
-
-      <p className="mt-4 text-sm text-gray-600">
-        Already have an account? <a href="/login" className="underline">Login</a>
-      </p>
-    </main>
+      )}
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full rounded-xl bg-brand-primary px-6 py-4 text-lg font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {loading ? "Creating account..." : "Create Account"}
+      </button>
+    </form>
   )
 }
 
 export default function RegisterPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <RegisterForm />
-    </Suspense>
+    <div className="min-h-screen bg-brand-background">
+      {/* Header */}
+      <div className="flex w-full items-center justify-between pl-4 pr-2 py-2 sm:pl-6 sm:pr-3 sm:py-3">
+        <Link href="/" className="flex items-center gap-1 hover:opacity-90 transition-opacity">
+          <Image 
+            src="/assets/curriculum-mastery-logo-small.png" 
+            alt="Curriculum Mastery Logo" 
+            width={288} 
+            height={288} 
+            className="h-[108px] w-auto sm:h-[144px]"
+            priority
+          />
+          <div className="flex flex-col">
+            <span className="text-xl sm:text-3xl font-bold text-brand-primary leading-tight tracking-wide">Curriculum</span>
+            <span className="text-2xl sm:text-4xl font-bold text-brand-primary leading-tight uppercase">MASTERY</span>
+          </div>
+        </Link>
+      </div>
+
+      {/* Main Content */}
+      <main className="flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md">
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-brand-primary mb-2">Create Account</h1>
+              <p className="text-gray-600">Join our music curriculum community</p>
+            </div>
+
+            <Suspense fallback={
+              <div className="flex items-center justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-primary"></div>
+              </div>
+            }>
+              <RegisterForm />
+            </Suspense>
+
+            <div className="mt-8 text-center">
+              <p className="text-gray-600">
+                Already have an account?{" "}
+                <Link href="/login" className="font-semibold text-brand-primary hover:text-brand-secondary transition-colors">
+                  Sign In
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
   )
 }

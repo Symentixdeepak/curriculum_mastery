@@ -11,15 +11,15 @@ export default function Testimonials() {
       <div className="space-y-6">
         {/* Albert Testimonial */}
         <div className="rounded-2xl bg-white p-6 shadow-lg border border-gray-100">
-          <div className="flex items-start gap-6">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <Image 
-              src="/assets/Albert.jpeg" 
+              src="/assets/albert.jpeg" 
               alt="Prof. Albert O.U. Authority" 
               width={80} 
               height={80} 
               className="w-20 h-20 rounded-full object-cover object-center flex-shrink-0"
             />
-            <div className="flex-1">
+            <div className="flex-1 text-center sm:text-left">
               <div className="mb-4">
                 <h3 className="font-bold text-gray-900">Prof. Albert O.U. Authority</h3>
                 <p className="text-sm text-gray-600">Professor of Music Theory and Composition</p>
@@ -34,15 +34,15 @@ export default function Testimonials() {
         
         {/* Pritha Testimonial */}
         <div className="rounded-2xl bg-white p-6 shadow-lg border border-gray-100">
-          <div className="flex items-start gap-6">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <Image 
-              src="/assets/Pritha.jpeg" 
+              src="/assets/pritha.jpeg" 
               alt="Pritha Ghosh" 
               width={80} 
               height={80} 
               className="w-20 h-20 rounded-full object-cover object-center flex-shrink-0"
             />
-            <div className="flex-1">
+            <div className="flex-1 text-center sm:text-left">
               <div className="mb-4">
                 <h3 className="font-bold text-gray-900">Pritha Ghosh</h3>
                 <p className="text-sm text-gray-600">Vocalist</p>
@@ -57,15 +57,15 @@ export default function Testimonials() {
         
         {/* Kadadi Testimonial */}
         <div className="rounded-2xl bg-white p-6 shadow-lg border border-gray-100">
-          <div className="flex items-start gap-6">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <Image 
-              src="/assets/Kadadi.jpg" 
+              src="/assets/kadadi.jpg" 
               alt="Sidharth Kadadi" 
               width={80} 
               height={80} 
               className="w-20 h-20 rounded-full object-cover object-top flex-shrink-0"
             />
-            <div className="flex-1">
+            <div className="flex-1 text-center sm:text-left">
               <div className="mb-4">
                 <h3 className="font-bold text-gray-900">Sidharth Kadadi</h3>
                 <p className="text-sm text-gray-600">Founder - Guitar Garage Inc., Zygnema, Scarfest</p>

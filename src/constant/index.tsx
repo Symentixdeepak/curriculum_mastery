@@ -1,0 +1,1 @@
+export const COURSE_PRICE = "49900"; // Course price in INR

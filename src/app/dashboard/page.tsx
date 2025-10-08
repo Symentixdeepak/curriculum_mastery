@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import PaymentButton from "@/components/PaymentButton";
 import CashfreePayButton from "@/components/CashfreePayButton";
+import { COURSE_PRICE } from "@/constant";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -80,7 +81,7 @@ export default async function DashboardPage() {
             <h2 className="text-2xl font-semibold text-brand-primary mb-4">
               Available Courses
             </h2>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6">
               {unenrolledCourses.map((course) => {
                 const totalLessons = course.modules.reduce(
                   (acc, m) => acc + m.lessons.length,
@@ -97,26 +98,18 @@ export default async function DashboardPage() {
                     <p className="text-gray-600 mb-4 text-sm">
                       {course.description}
                     </p>
-                    <div className="flex justify-between items-center text-sm text-gray-500 mb-4">
+                    <div className="flex gap-4 items-center text-sm text-gray-500 mb-4">
                       <span>{course.modules.length} modules</span>
                       <span>{totalLessons} lessons</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-2xl font-bold text-brand-primary">
-                        ₹{(course.price / 100).toLocaleString()}
+                        ₹{COURSE_PRICE}
                       </span>
-                      {/* <PaymentButton
-                        courseId={course.id}
-                        amount={course.price}
-                        className="rounded-xl bg-brand-primary px-4 py-2 text-sm font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-200"
-                      >
-                        Enroll Now
-                      </PaymentButton> */}
-                      {/* <CashfreePayButton/> */}
 
                       <Link
                         href="https://payments.cashfree.com/forms?code=pay_form"
-                        className="rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-md hover:shadow-lg transition-all bg-brand-primary mr-[50px]"
+                        className="rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-md hover:shadow-lg transition-all bg-brand-primary"
                       >
                         Enroll Now
                       </Link>
@@ -129,7 +122,7 @@ export default async function DashboardPage() {
         )}
 
         {/* Enrolled Courses */}
-        {enrollments.length === 0 ? (
+        {/* {enrollments.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
             <h2 className="text-xl font-semibold text-brand-primary mb-2">
               No Enrollments Yet
@@ -227,8 +220,31 @@ export default async function DashboardPage() {
               })}
             </div>
           </div>
-        )}
+        )} */}
       </main>
+      <footer className="mt-16 border-t bg-gray-50">
+        <div className="mx-auto max-w-6xl p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+            <span>
+              © {new Date().getFullYear()} Pratik Kulgod. All rights reserved.
+            </span>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/privacy"
+                className="hover:text-blue-600 transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="hover:text-blue-600 transition-colors"
+              >
+                Terms of Service
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

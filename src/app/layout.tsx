@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Curriculum Mastery - IB & IGCSE Music Educators Course by Pratik Kulgod",
+  title: "Curriculum Mastery - IB & IGCSE Music Educators Course",
   description: "Master the skills to teach IB & IGCSE Music with confidence. Real-world training for music educators with hands-on tools, expert guidance, and curriculum support.",
 };
 
