@@ -644,26 +644,27 @@ export default function Home() {
                 About Pratik Kulgod
               </h2>
 
-              <div className="flex flex-col lg:flex-row gap-8">
-                <div className="lg:w-80 flex flex-col gap-6">
-                  {/* Image */}
-                  <div className="rounded-2xl overflow-hidden mt-[6px]">
+              <div className="flex flex-col lg:flex-row gap-8 lg:items-stretch">
+                {/* Left Column - Fixed width with equal height container */}
+                <div className="lg:w-80 flex flex-col h-auto lg:h-[670px] mt-[5px]">
+                  {/* Image - Takes up more space */}
+                  <div className="rounded-2xl overflow-hidden flex-grow lg:flex-grow-[3]">
                     <Image
                       src="/assets/pratik.jpg"
                       alt="Pratik Kulgod - Head of Music at Singapore International School"
                       width={320}
-                      height={440}
-                      className="w-full h-[440px] object-cover"
+                      height={500}
+                      className="w-full h-full min-h-[400px] lg:min-h-[480px] object-cover"
                       priority
                     />
                   </div>
 
-                  {/* Credentials */}
-                  <div className="rounded-2xl bg-white p-6 shadow-lg">
-                    <h3 className="text-xl font-bold text-gray-900">
+                  {/* Credentials - Takes up less space */}
+                  <div className="rounded-2xl bg-white p-4 lg:p-5 shadow-lg mt-6 lg:flex-grow-[1]">
+                    <h3 className="text-lg lg:text-xl font-bold text-gray-900">
                       Credentials
                     </h3>
-                    <div className="mt-4 space-y-3">
+                    <div className="mt-3 space-y-2.5">
                       <div className="flex items-center gap-3">
                         <div
                           className="rounded-full p-2"
@@ -760,12 +761,12 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Text Content */}
+                {/* Right Column - Text Content with equal height */}
                 <div className="flex-1">
-                  <div className="space-y-6 text-gray-700 h-[500px] flex flex-col justify-between">
-                    <p className="text-lg leading-relaxed text-justify">
+                  <div className="h-auto lg:h-[680px] flex flex-col justify-between space-y-6 lg:space-y-8 text-gray-700 overflow-hidden">
+                    <p className="text-base leading-relaxed text-justify">
                       With over <strong>14 years of experience</strong> in music
-                      education and performance, Pratik Kulgod brings passion
+                      education and performance, Pratik Kubaseod brings passion
                       and expertise to the field of music. He currently serves
                       as{" "}
                       <strong>
@@ -776,7 +777,7 @@ export default function Home() {
                       interschool music competition called Conzert, hosted by
                       his school.
                     </p>
-                    <p className="text-lg leading-relaxed text-justify">
+                    <p className="text-base leading-relaxed text-justify">
                       A dedicated drummer and educator, he holds a{" "}
                       <strong>PGCE from the University of Warwick</strong> and
                       earned a{" "}
@@ -789,7 +790,7 @@ export default function Home() {
                       his rhythmic vocabulary through konnakol training with
                       percussion maestro Viveick Rajagopalan.
                     </p>
-                    <p className="text-lg leading-relaxed text-justify">
+                    <p className="text-base leading-relaxed text-justify">
                       Beyond the classroom, Pratik has actively supported music
                       teachers for the past six years - both independently and
                       as an{" "}
