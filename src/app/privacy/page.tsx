@@ -14,7 +14,7 @@ export default function PrivacyPage() {
               Privacy Policy
             </h1>
             <p className="text-gray-600 text-lg">
-              Privacy Policy for Pratik Kulgod's IB and IGCSE Music Educator Course
+              Privacy Policy for Pratik Kulgod&apos;s IB and IGCSE Music Educator Course
             </p>
             <p className="text-gray-500 mt-2">
               Last Updated: 08/10/25
@@ -24,7 +24,7 @@ export default function PrivacyPage() {
           {/* Privacy Policy Content */}
           <div className="max-w-3xl mx-auto">
             <p className="text-gray-700 mb-8 text-lg leading-relaxed">
-              This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from our website www.curriculum-mastery.in (the "Site").
+              This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from our website www.curriculum-mastery.in (the &quot;Site&quot;).
             </p>
 
             <div className="space-y-8 text-gray-700 leading-relaxed">
@@ -33,7 +33,7 @@ export default function PrivacyPage() {
                   1. Information We Collect
                 </h2>
                 <p className="mb-4">
-                  When you visit the Site, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies that are installed on your device. Additionally, as you browse the Site, we collect information about the individual web pages or products that you view, what websites or search terms referred you to the Site, and information about how you interact with the Site. We refer to this automatically-collected information as "Device Information."
+                  When you visit the Site, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies that are installed on your device. Additionally, as you browse the Site, we collect information about the individual web pages or products that you view, what websites or search terms referred you to the Site, and information about how you interact with the Site. We refer to this automatically-collected information as &quot;Device Information.&quot;
                 </p>
                 <p className="mb-4">
                   We collect Device Information using the following technologies:
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
                   </li>
                 </ul>
                 <p>
-                  When you register for the course, we also collect personal information such as your name, email address, and payment information. This is referred to as "Order Information."
+                  When you register for the course, we also collect personal information such as your name, email address, and payment information. This is referred to as &quot;Order Information.&quot;
                 </p>
               </div>
 

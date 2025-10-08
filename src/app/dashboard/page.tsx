@@ -4,8 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/Header";
-import PaymentButton from "@/components/PaymentButton";
-import CashfreePayButton from "@/components/CashfreePayButton";
 import { COURSE_PRICE } from "@/constant";
 
 export default async function DashboardPage() {
@@ -46,22 +44,10 @@ export default async function DashboardPage() {
     orderBy: { createdAt: "desc" },
   });
 
-  // Build a set of all lesson IDs across enrolled courses
-  const allLessonIds = enrollments.flatMap((en) =>
-    en.course.modules.flatMap((m) => m.lessons.map((l) => l.id))
-  );
-  const completed = await prisma.lessonProgress.findMany({
-    where: { userId: user.id, lessonId: { in: allLessonIds } },
-    select: { lessonId: true },
-  });
-  const completedSet = new Set(
-    completed.map((c: { lessonId: string }) => c.lessonId)
-  );
-
   // Get courses not enrolled in
-  const enrolledCourseIds = new Set(enrollments.map((e) => e.courseId));
+  const enrolledCourseIds = new Set(enrollments.map((e: { courseId: string }) => e.courseId));
   const unenrolledCourses = availableCourses.filter(
-    (course) => !enrolledCourseIds.has(course.id)
+    (course: { id: string }) => !enrolledCourseIds.has(course.id)
   );
 
   return (
@@ -82,9 +68,9 @@ export default async function DashboardPage() {
               Available Courses
             </h2>
             <div className="grid gap-6">
-              {unenrolledCourses.map((course) => {
+              {unenrolledCourses.map((course: { id: string; title: string; description: string; modules: { lessons: unknown[] }[] }) => {
                 const totalLessons = course.modules.reduce(
-                  (acc, m) => acc + m.lessons.length,
+                  (acc: number, m: { lessons: unknown[] }) => acc + m.lessons.length,
                   0
                 );
                 return (
