@@ -51,9 +51,9 @@ export default async function DashboardPage() {
   );
 
   return (
-    <div className="min-h-screen bg-brand-background">
+    <div className="min-h-screen bg-brand-background flex flex-col">
       <Header />
-      <main className="mx-auto max-w-6xl p-6">
+      <main className="mx-auto max-w-6xl p-6 flex-1">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-brand-primary">Dashboard</h1>
           <p className="mt-2 text-gray-600">
@@ -68,9 +68,9 @@ export default async function DashboardPage() {
               Available Courses
             </h2>
             <div className="grid gap-6">
-              {unenrolledCourses.map((course: { id: string; title: string; description: string; modules: { lessons: unknown[] }[] }) => {
+              {unenrolledCourses.map((course: any) => {
                 const totalLessons = course.modules.reduce(
-                  (acc: number, m: { lessons: unknown[] }) => acc + m.lessons.length,
+                  (acc: number, m: any) => acc + m.lessons.length,
                   0
                 );
                 return (
@@ -208,7 +208,7 @@ export default async function DashboardPage() {
           </div>
         )} */}
       </main>
-      <footer className="mt-16 border-t bg-gray-50">
+      <footer className="border-t bg-gray-50 mt-auto">
         <div className="mx-auto max-w-6xl p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
             <span>
