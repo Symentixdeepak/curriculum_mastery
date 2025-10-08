@@ -45,7 +45,7 @@ export default function ContactUs() {
   };
 
   return (
-    <section id="contact" className="mt-16 sm:mt-24">
+    <section id="contact" className="mt-16 sm:mt-24" style={{ scrollMarginTop: "200px" }}>
       <div className="text-center mb-12">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
           Contact Us

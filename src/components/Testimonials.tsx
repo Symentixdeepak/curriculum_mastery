@@ -5,7 +5,7 @@ export default function Testimonials() {
     <section className="mt-16">
       <div className="text-center mb-12">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">What Educators Say</h2>
-        <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">Hear from music education professionals who know Pratik&apos;s work</p>
+        <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">Discover why teachers recommend Pratik</p>
       </div>
       
       <div className="space-y-6">

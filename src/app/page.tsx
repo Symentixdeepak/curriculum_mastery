@@ -56,7 +56,10 @@ export default function Home() {
   }, [status]);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#ffffff" }}>
+    <div
+      className="min-h-screen"
+      style={{ backgroundColor: "#ffffff", scrollPaddingTop: "160px" }}
+    >
       <Header />
 
       {/* Hero Section - Full Width */}
@@ -76,8 +79,8 @@ export default function Home() {
                 <strong>Clarity. Purpose. Confidence.</strong>
               </p>
               <p className="mt-3 sm:mt-4 text-base sm:text-lg lg:text-xl leading-relaxed text-gray-700">
-                Get hands-on
-                tools, expert guidance, and curriculum support designed for <br/>
+                Get hands-on tools, expert guidance, and curriculum support
+                designed for <br />
                 IB/IGCSE music teachers.
               </p>
 
@@ -111,189 +114,199 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Two Column Layout - Starts Here */}
-      <div className="flex max-w-7xl mx-auto mt-12">
-        {/* Main Content Column */}
-        <main className="flex-1 relative z-10 p-4 sm:p-6">
-          {/* Exclusive Features */}
-          <section className="mt-2 sm:mt-3">
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                Exclusive Features
-              </h2>
-              <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">
-                Real-world training designed specifically for IB & IGCSE music
-                educators
-              </p>
-            </div>
-            <div className="mt-8 sm:mt-12 grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
-              <div
-                className="rounded-2xl border-2 border-brand-neutral-light p-6 transition-all hover:shadow-lg"
-                style={{ backgroundColor: "#f7f6f7" }}
-              >
-                <div className="rounded-full p-3 w-fit bg-brand-primary">
-                  <svg
-                    className="h-6 w-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="mt-4 text-xl font-bold text-gray-900">
-                  Live Weekend Sessions
-                </h3>
-                <p className="mt-2 text-gray-700">
-                  Interactive live classes held over weekends, offering
-                  real-time engagement and Q&A sessions.
-                </p>
-              </div>
-
-              <div
-                className="rounded-2xl border-2 border-brand-neutral-light p-6 transition-all hover:shadow-lg"
-                style={{ backgroundColor: "#f7f6f7" }}
-              >
-                <div className="rounded-full p-3 w-fit bg-brand-secondary">
-                  <svg
-                    className="h-6 w-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="mt-4 text-xl font-bold text-gray-900">
-                  Deep Dive
-                </h3>
-                <p className="mt-2 text-gray-700">
-                  A comprehensive coverage of IGCSE and IB curriculums to
-                  shorten your learning curve.
-                </p>
-              </div>
-
-              <div
-                className="rounded-2xl border-2 border-brand-neutral-light p-6 transition-all hover:shadow-lg"
-                style={{ backgroundColor: "#f7f6f7" }}
-              >
-                <div className="rounded-full p-3 w-fit bg-brand-primary">
-                  <svg
-                    className="h-6 w-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="mt-4 text-xl font-bold text-gray-900">
-                  Real-World Strategies
-                </h3>
-                <p className="mt-2 text-gray-700">
-                  Learn practical strategies for handling various scenarios
-                  across international school setups, examinations, submissions
-                  and performances.
-                </p>
-              </div>
-
-              <div
-                className="rounded-2xl border-2 border-brand-neutral-light p-6 transition-all hover:shadow-lg"
-                style={{ backgroundColor: "#f7f6f7" }}
-              >
-                <div className="rounded-full p-3 w-fit bg-brand-secondary">
-                  <svg
-                    className="h-6 w-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="mt-4 text-xl font-bold text-gray-900">
-                  Certificate of Completion
-                </h3>
-                <p className="mt-2 text-gray-700">
-                  Receive a certificate of completion to support your
-                  professional advancement.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* What You'll Learn */}
-          <section id="what-youll-learn" className="mt-12 sm:mt-16">
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                What You&apos;ll Learn
-              </h2>
-              <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">
-                Comprehensive curriculum covering both IGCSE and IB frameworks
-              </p>
-            </div>
-            <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {[
-                "IGCSE Cambridge syllabus essentials",
-                "IBDP Music frameworks",
-                "Adapting global curricula for Indian classrooms",
-                "Building confidence in evaluation and feedback",
-                "Unit Design & Lesson Structure",
-                "Command terms, rubrics, and assessments",
-                "Creating student-focused learning materials",
-                "Teaching with Logic Pro, MuseScore, Soundtrap",
-                "Balancing performance, theory, and academics",
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-start gap-3 rounded-lg border border-brand-neutral-light p-4 transition-all hover:shadow-md hover:border-brand-primary"
+      <div className="max-w-7xl mx-auto mt-12 px-4 sm:px-6">
+        {/* Exclusive Features */}
+        <section className="mt-2 sm:mt-3">
+          <div className="text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              Exclusive Features
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">
+              Real-world training designed specifically for IB & IGCSE music
+              educators
+            </p>
+          </div>
+          <div className="mt-8 sm:mt-12 grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div
+              className="rounded-2xl border-2 border-brand-neutral-light p-6 transition-all hover:shadow-lg"
+              style={{ backgroundColor: "#f7f6f7" }}
+            >
+              <div className="rounded-full p-3 w-fit bg-brand-primary">
+                <svg
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <div
-                    className="rounded-full p-1 mt-1"
-                    style={{ backgroundColor: "rgba(3, 14, 80, 0.1)" }}
-                  >
-                    <svg
-                      className="h-4 w-4 text-brand-primary"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <span className="text-gray-700 font-medium">{item}</span>
-                </div>
-              ))}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+              <h3 className="mt-4 text-xl font-bold text-gray-900">
+                Live Weekend Sessions
+              </h3>
+              <p className="mt-2 text-gray-700">
+                Interactive live classes held over weekends, offering real-time
+                engagement and Q&A sessions.
+              </p>
             </div>
-          </section>
 
+            <div
+              className="rounded-2xl border-2 border-brand-neutral-light p-6 transition-all hover:shadow-lg"
+              style={{ backgroundColor: "#f7f6f7" }}
+            >
+              <div className="rounded-full p-3 w-fit bg-brand-secondary">
+                <svg
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <h3 className="mt-4 text-xl font-bold text-gray-900">
+                Deep Dive
+              </h3>
+              <p className="mt-2 text-gray-700">
+                A comprehensive coverage of IGCSE and IB curriculums to shorten
+                your learning curve.
+              </p>
+            </div>
+
+            <div
+              className="rounded-2xl border-2 border-brand-neutral-light p-6 transition-all hover:shadow-lg"
+              style={{ backgroundColor: "#f7f6f7" }}
+            >
+              <div className="rounded-full p-3 w-fit bg-brand-primary">
+                <svg
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
+              <h3 className="mt-4 text-xl font-bold text-gray-900">
+                Real-World Strategies
+              </h3>
+              <p className="mt-2 text-gray-700">
+                Learn practical strategies for handling various scenarios across
+                international school setups, examinations, submissions and
+                performances.
+              </p>
+            </div>
+
+            <div
+              className="rounded-2xl border-2 border-brand-neutral-light p-6 transition-all hover:shadow-lg"
+              style={{ backgroundColor: "#f7f6f7" }}
+            >
+              <div className="rounded-full p-3 w-fit bg-brand-secondary">
+                <svg
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                  />
+                </svg>
+              </div>
+              <h3 className="mt-4 text-xl font-bold text-gray-900">
+                Certificate of Completion
+              </h3>
+              <p className="mt-2 text-gray-700">
+                Receive a certificate of completion to support your professional
+                advancement.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* What You'll Learn */}
+        <section
+          id="what-youll-learn"
+          className="mt-12 sm:mt-16"
+          style={{ scrollMarginTop: "200px" }}
+        >
+          <div className="text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              What You&apos;ll Learn
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">
+              Comprehensive curriculum covering both IGCSE and IB frameworks
+            </p>
+          </div>
+          <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              "IGCSE Cambridge syllabus essentials",
+              "IBDP Music frameworks",
+              "Adapting global curricula for Indian classrooms",
+              "Building confidence in evaluation and feedback",
+              "Unit Design & Lesson Structure",
+              "Command terms, rubrics, and assessments",
+              "Creating student-focused learning materials",
+              "Teaching with Logic Pro, MuseScore, Soundtrap",
+              "Balancing performance, theory, and academics",
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 rounded-lg border border-brand-neutral-light p-4 transition-all hover:shadow-md hover:border-brand-primary"
+              >
+                <div
+                  className="rounded-full p-1 mt-1"
+                  style={{ backgroundColor: "rgba(3, 14, 80, 0.1)" }}
+                >
+                  <svg
+                    className="h-4 w-4 text-brand-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <span className="text-gray-700 font-medium">{item}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Two Column Layout - Starts Here */}
+      <div className="flex max-w-7xl mx-auto mt-12 px-4 sm:px-6">
+        {/* Main Content Column */}
+        <main className="flex-1 relative z-10">
           {/* Course Modules */}
-          <section id="modules" className="mt-12 sm:mt-16">
+          <section
+            id="modules"
+        
+            style={{ scrollMarginTop: "200px" }}
+          >
             <div className="text-center">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
                 Course Modules
@@ -643,8 +656,8 @@ export default function Home() {
                       src="/assets/pratik.jpg"
                       alt="Pratik Kulgod - Head of Music at Singapore International School"
                       width={320}
-                      height={240}
-                      className="w-full h-60 object-cover"
+                      height={320}
+                      className="w-full h-80 object-cover"
                       priority
                     />
                   </div>
@@ -754,7 +767,7 @@ export default function Home() {
                 {/* Text Content */}
                 <div className="flex-1">
                   <div className="space-y-4 text-gray-700">
-                    <p className="text-lg leading-relaxed text-justify">
+                    <p className="text-base leading-relaxed text-justify">
                       With over <strong>14 years of experience</strong> in music
                       education and performance, Pratik Kulgod brings passion
                       and expertise to the field of music. He currently serves
@@ -767,7 +780,7 @@ export default function Home() {
                       interschool music competition called Conzert, hosted by
                       his school.
                     </p>
-                    <p className="text-lg leading-relaxed text-justify">
+                    <p className="text-base leading-relaxed text-justify">
                       A dedicated drummer and educator, he holds a{" "}
                       <strong>PGCE from the University of Warwick</strong> and
                       earned a{" "}
@@ -780,7 +793,7 @@ export default function Home() {
                       his rhythmic vocabulary through konnakol training with
                       percussion maestro Viveick Rajagopalan.
                     </p>
-                    <p className="text-lg leading-relaxed text-justify">
+                    <p className="text-base leading-relaxed text-justify">
                       Beyond the classroom, Pratik has actively supported music
                       teachers for the past six years - both independently and
                       as an{" "}
@@ -886,8 +899,8 @@ export default function Home() {
         </main>
 
         {/* Right Column for Banner */}
-        <aside className="hidden xl:block w-85 flex-shrink-0">
-          <div className="sticky top-42 p-4">
+        <aside className="hidden xl:block w-92 flex-shrink-0">
+          <div className="sticky top-42 p-4 ml-8">
             <StickyEnrollBanner />
           </div>
         </aside>
