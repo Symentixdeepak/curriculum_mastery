@@ -30,27 +30,20 @@ export default function Header() {
         isScrolled ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-transparent"
       }`}
     >
-      <div className="flex w-full items-center justify-between pl-4 pr-2 py-2 sm:pl-6 sm:pr-3 sm:py-3">
+      <div className="flex w-full items-center justify-between pl-4 pr-2 py-1 sm:pl-6 sm:pr-3 sm:py-1.5">
         <Link
           href="/"
           className="flex items-center gap-1 hover:opacity-90 transition-opacity"
         >
           <Image
-            src="/assets/curriculum-mastery-logo-small.png"
+            src="/assets/logo_with_name.png"
             alt="Curriculum Mastery Logo"
             width={288}
             height={288}
-            className="h-[80px] w-auto sm:h-[108px] md:h-[144px]"
+            className="h-[120px] w-auto sm:h-[160px] md:h-[220px] -my-4 sm:-my-6 md:-my-8"
             priority
           />
-          <div className="flex flex-col">
-            <span className="text-lg sm:text-xl md:text-3xl font-bold text-brand-primary leading-tight tracking-wide">
-              Curriculum
-            </span>
-            <span className="text-xl sm:text-2xl md:text-4xl font-bold text-brand-primary leading-tight uppercase">
-              MASTERY
-            </span>
-          </div>
+    
         </Link>
 
         {/* Desktop Navigation */}

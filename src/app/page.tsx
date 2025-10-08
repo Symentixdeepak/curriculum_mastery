@@ -302,11 +302,7 @@ export default function Home() {
         {/* Main Content Column */}
         <main className="flex-1 relative z-10">
           {/* Course Modules */}
-          <section
-            id="modules"
-        
-            style={{ scrollMarginTop: "200px" }}
-          >
+          <section id="modules" style={{ scrollMarginTop: "200px" }}>
             <div className="text-center">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
                 Course Modules
@@ -534,8 +530,8 @@ export default function Home() {
                         Live Sessions
                       </h3>
                       <p className="text-sm text-gray-700">
-                        12 hours across 4 weekends (11:30am-1:30pm &
-                        5:30-7:30pm)
+                        12 hours across 4 days (11:00 am – 12:30 pm & 4:00 pm –
+                        5:30 pm)
                       </p>
                     </div>
                   </div>
