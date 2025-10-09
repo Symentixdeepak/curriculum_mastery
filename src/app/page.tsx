@@ -63,15 +63,15 @@ export default function Home() {
       <Header />
 
       {/* Hero Section - Full Width */}
-      <section className="relative sm:p-6">
-        <div className="relative mt-4 rounded-2xl p-6 sm:p-8 lg:p-4 bg-white/80 backdrop-blur-sm ring-1 ring-gray-100 overflow-hidden">
-          <div className="relative flex flex-col max-w-7xl mx-auto lg:flex-row lg:justify-between gap-8 lg:gap-12 z-10">
-            <div className="flex-1 lg:mt-16">
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="relative mt-4 rounded-2xl p-6 sm:p-8 lg:p-4 bg-white/80 backdrop-blur-sm ring-1 ring-gray-100 overflow-hidden max-w-7xl mx-auto">
+          <div className="relative flex flex-col lg:flex-row lg:justify-between gap-8 lg:gap-12 z-10">
+            <div className="flex-1 lg:mt-16 text-center lg:text-right">
               <span className="inline-block rounded-full px-3 py-1 text-xs font-medium bg-brand-neutral-light text-brand-primary">
                 IB & IGCSE Music Educators Course
               </span>
               <h1 className="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl lg:text-5xl">
-                Master the Skills to Teach
+                Master the Skills to Teach <br/>
                 <span className="text-brand-primary"> IB & IGCSE Music </span>
                 with Confidence
               </h1>
@@ -79,9 +79,8 @@ export default function Home() {
                 <strong>Clarity. Purpose. Confidence.</strong>
               </p>
               <p className="mt-3 sm:mt-4 text-base sm:text-lg lg:text-xl leading-relaxed text-gray-700">
-                Get hands-on tools, expert guidance, and curriculum support
-                designed for <br />
-                IB/IGCSE music teachers.
+                Get hands-on tools, expert guidance, and<br/> curriculum support
+                designed for IB/IGCSE <br /> music teachers.
               </p>
 
               <div className="mt-5 sm:mt-6">
@@ -646,7 +645,7 @@ export default function Home() {
 
               <div className="flex flex-col lg:flex-row gap-8 lg:items-stretch">
                 {/* Left Column - Fixed width with equal height container */}
-                <div className="lg:w-80 flex flex-col h-auto lg:h-[670px] mt-[5px]">
+                <div className="lg:w-80 flex flex-col h-auto lg:h-[690px] mt-[5px]">
                   {/* Image - Takes up more space */}
                   <div className="rounded-2xl overflow-hidden flex-grow lg:flex-grow-[3]">
                     <Image
@@ -763,7 +762,7 @@ export default function Home() {
 
                 {/* Right Column - Text Content with equal height */}
                 <div className="flex-1">
-                  <div className="h-auto lg:h-[680px] flex flex-col justify-between space-y-6 lg:space-y-8 text-gray-700 overflow-hidden">
+                  <div className="h-auto lg:h-[700px] flex flex-col justify-between space-y-6 lg:space-y-8 text-gray-700 overflow-hidden">
                     <p className="text-base leading-relaxed text-justify">
                       With over <strong>14 years of experience</strong> in music
                       education and performance, Pratik Kubaseod brings passion

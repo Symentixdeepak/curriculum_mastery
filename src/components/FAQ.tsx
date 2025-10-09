@@ -41,17 +41,20 @@ export default function FAQ() {
               className="w-full p-6 text-left hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-bold text-gray-900">{faq.question}</h3>
-                <svg
-                  className={`h-5 w-5 text-gray-500 transition-transform ${
-                    openFaq === index ? 'rotate-180' : ''
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                <h3 className="text-lg font-bold text-gray-900 pr-4">{faq.question}</h3>
+                <div className="flex-shrink-0">
+                  <svg
+                    className={`h-5 w-5 sm:h-6 sm:w-6 text-gray-500 transition-transform ${
+                      openFaq === index ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
               </div>
             </button>
             {openFaq === index && (
