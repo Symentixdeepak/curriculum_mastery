@@ -906,7 +906,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
             <span>
-              © {new Date().getFullYear()} Pratik Kulgod. All rights reserved.
+              © {new Date().getFullYear()} Pratik Kulgod, Bhairavi Music. All rights reserved.
             </span>
             <div className="flex items-center gap-4">
               <Link
