@@ -380,9 +380,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Testimonials */}
-          <Testimonials />
-
           {/* Requirements & Resources */}
           <section className="mt-12 sm:mt-16">
             <div className="grid gap-8 sm:gap-12 lg:grid-cols-2">
@@ -629,6 +626,9 @@ export default function Home() {
           <section className="xl:hidden sm:p-6 mt-12">
             <StickyEnrollBanner />
           </section>
+
+          {/* Testimonials */}
+          <Testimonials />
 
           {/* FAQ */}
           <FAQ />
