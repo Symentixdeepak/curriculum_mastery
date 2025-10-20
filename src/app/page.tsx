@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import ContactUs from "@/components/ContactUs";
@@ -13,7 +13,183 @@ import { useSession } from "next-auth/react";
 export default function Home() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentCourse, setCurrentCourse] = useState(0);
   const { status } = useSession();
+  
+  // Refs for course sections
+  const courseRefs = [
+    useRef<HTMLElement>(null),
+    useRef<HTMLElement>(null),
+    useRef<HTMLElement>(null),
+    useRef<HTMLElement>(null)
+  ];
+  
+  // Refs for course headers (the h2 titles)
+  const headerRefs = [
+    useRef<HTMLHeadingElement>(null),
+    useRef<HTMLHeadingElement>(null),
+    useRef<HTMLHeadingElement>(null),
+    useRef<HTMLHeadingElement>(null)
+  ];
+
+  // Course data
+  const courses = [
+    {
+      id: 'igcse-basic',
+      title: 'IGCSE Music Basic',
+      price: '₹15,400/-',
+      duration: '4 Hours',
+      dates: '1st Nov onwards',
+      description: 'This course introduces aspiring teachers to the fundamentals of the IGCSE Music curriculum, covering key concepts in music theory, listening, and performance. It covers the basic topics of what goes into teaching IGCSE music as a subject.',
+      whatYouLearn: [
+        'IGCSE Cambridge syllabus essentials',
+        'Command terms and rubrics',
+        'Creating student-focused learning materials',
+        'Balancing performance, theory, and academics',
+        'Unit design and goal-based planning'
+      ],
+      modules: [
+        { number: '01', title: 'Core Curriculum: Areas of Study', description: 'Foundation principles and teaching methodologies for IGCSE Music' },
+        { number: '02', title: 'Curriculum Pedagogy', description: 'An approach to Unit Planning and Links with IGCSE assessments' },
+        { number: '03', title: 'Unit Planning', description: 'A Study of World and Modern Genres in IGCSE Music' },
+        { number: '04', title: 'Making your own resources', description: 'How to approach performance and composition within the curriculum' },
+        { number: '05', title: 'Understanding exams and assessments', description: 'Core concepts and teaching strategies for IB Diploma Programme Music' },
+        { number: '06', title: 'Filling the Gaps: An Overview of Programs Across All School Years', description: 'Strategies and Concepts in IBDP Music' }
+      ],
+      requirements: [
+        'Existing Musicians & Teachers only: You should be proficient at one instrument minimum (voice is considered an instrument as well). Having some experience teaching music, whether as a hobby or at a school level, is preferred but not essential.',
+        'Commitment to Attendance: Attend the live sessions to ensure the best learning experience.',
+        'Revision & Course Work: You are expected to take notes, review the provided resources, and complete the coursework on time to gain the maximum benefit from this course.',
+        'Study Time: Approximately 1 to 2 hours of daily study during the course days is recommended.',
+        'Limited Seats: Please enroll on a first-come, first-served basis.',
+        'Non-Refundable Fee: The course fee of ₹15,400/- is non-refundable because the course is knowledge-based.'
+      ],
+      resources: [
+        'Live Sessions: 4 hours across 2 days (11:00 am - 1:00 pm & 4:00 - 6:00 pm)',
+        'Resources, examples, samples to help you through the course as well as your teaching journey tailored to Indian students and school expectations.',
+        'Guidance throughout first year via email or mutually agreed time for video meeting',
+        'Q&A Sessions: Dedicated time after each class to address doubts.'
+      ]
+    },
+    {
+      id: 'igcse-advanced',
+      title: 'IGCSE Music Advanced',
+      price: '₹15,400/-',
+      duration: '4 Hours',
+      dates: '1st Nov onwards',
+      description: 'This advanced course is designed for teachers aiming to deepen their expertise in the IGCSE Music curriculum, exploring all the areas of study in-depth with pedagogical strategies and assessment methods. Upon completion of this course, you will be fully equipped with the knowledge and confidence required to teach IGCSE Music as an academic subject and prepare your students for board exams.',
+      whatYouLearn: [
+        'Adapting global curricula for Indian classrooms',
+        'Lesson structure and pacing strategies',
+        'Creating assessments',
+        'Teaching with Logic Pro, MuseScore, Soundtrap',
+        'Building confidence in evaluation and feedback'
+      ],
+      modules: [
+        { number: '01', title: 'Music Without Borders', description: 'A Study of World and Modern Genres in IGCSE Music' },
+        { number: '02', title: 'Modern Genres', description: 'Contemporary music styles and their application in curriculum' },
+        { number: '03', title: 'Western Art Music: All Eras', description: 'Comprehensive coverage of classical music periods' },
+        { number: '04', title: 'Performance & Composition Assessments', description: 'Assessment strategies for practical components' }
+      ],
+      requirements: [
+        'IGCSE Music Basic Course should have been successfully completed.',
+        'Commitment to Attendance: Attend the live sessions to ensure the best learning experience.',
+        'Revision & Course Work: You are expected to take notes, review the provided resources, and complete the coursework on time to gain the maximum benefit from this course.',
+        'Study Time: Approximately 1 to 2 hours of daily study during the course days is recommended.',
+        'Limited Seats: Please enroll on a first-come, first-served basis.',
+        'Non-Refundable Fee: The course fee of ₹15,400/- is non-refundable because the course is knowledge-based.'
+      ],
+      resources: [
+        'Live Sessions: 4 hours across 2 days (11:00 am - 1:00 pm or 4:00 - 6:00 pm)',
+        'Resources, examples, samples to help you through the course as well as your teaching journey tailored to Indian students and school expectations.',
+        'Guidance throughout first year via email or mutually agreed time for video meeting',
+        'Q&A Sessions: Dedicated time after each class to address doubts.'
+      ]
+    },
+    {
+      id: 'ib-comprehensive',
+      title: 'IB Music Comprehensive',
+      price: '₹25,000/-',
+      duration: '6 Hours',
+      dates: '1st Nov onwards',
+      description: 'This comprehensive course is designed for aspiring IB Music teachers seeking to develop a deep understanding of the curriculum and its pedagogical framework. It provides in-depth exploration of all course components, including musical analysis, performance, and inquiry-based learning, equipping educators with the expertise and confidence to effectively guide students toward success in the IB Music program.',
+      whatYouLearn: [
+        'IBDP Music: Framework and Pedagogy',
+        'Adapting global curricula for Indian classrooms',
+        'Balancing performance, theory, and academics',
+        'Unit design and goal-based planning',
+        'Lesson structure and pacing strategies',
+        'Command terms, rubrics, and assessments',
+        'Creating student-focused learning materials',
+        'Teaching with Logic Pro, MuseScore, Soundtrap',
+        'Building confidence in evaluation and feedback'
+      ],
+      modules: [
+        { number: '01', title: 'Concepts in IBDP Music', description: 'Core concepts and teaching strategies for IB Diploma Programme Music' },
+        { number: '02', title: 'Teaching Strategies', description: 'Strategies and Concepts in IBDP Music' },
+        { number: '03', title: 'Unit Planning', description: 'Unit planning and understanding assessment procedures in IBDP Music' },
+        { number: '04', title: 'Understanding Assessment Procedures', description: 'Assessment strategies for IB Music components' },
+        { number: '05', title: 'Filling the Gaps: An Overview of Programs Across All School Years', description: 'An overview of IB and IGCSE programs across all school years' }
+      ],
+      requirements: [
+        'Existing Musicians & Teachers only: You should be proficient at one instrument minimum (voice is considered an instrument as well). Having some experience teaching music, whether as a hobby or at a school level, is preferred but not essential.',
+        'Commitment to Attendance: Attend the live sessions to ensure the best learning experience.',
+        'Revision & Course Work: You are expected to take notes, review the provided resources, and complete the coursework on time to gain the maximum benefit from this course.',
+        'Study Time: Approximately 1 to 2 hours of daily study during the course days is recommended.',
+        'Limited Seats: Please enroll on a first-come, first-served basis.',
+        'Non-Refundable Fee: The course fee of ₹25,000/- is non-refundable because the course is knowledge-based.'
+      ],
+      resources: [
+        'Live Sessions: 6 hours across 3 days (11:00 am - 1:00 pm or 4:00 - 6:00 pm)',
+        'Resources, examples, samples to help you through the course as well as your teaching journey tailored to Indian students and school expectations.',
+        'Guidance throughout first year via email or mutually agreed time for video meeting',
+        'Q&A Sessions: Dedicated time after each class to address doubts.'
+      ]
+    },
+    {
+      id: 'ib-igcse-educators',
+      title: 'IB & IGCSE Music Educators Course',
+      price: '₹49,900/-',
+      duration: '12 Hours',
+      dates: '1st Nov - 19th Nov',
+      description: 'This integrated course combines the IGCSE and IB Music teacher training programs, offering a complete pathway for aspiring academic music educators. It equips teachers with the skills, knowledge, and pedagogical strategies needed to effectively teach and prepare students across both international curricula.',
+      whatYouLearn: [
+        'IGCSE Cambridge syllabus essentials',
+        'IBDP Music frameworks',
+        'Adapting global curricula for Indian classrooms',
+        'Balancing performance, theory, and academics',
+        'Unit design and goal-based planning',
+        'Lesson structure and pacing strategies',
+        'Command terms, rubrics, and assessments',
+        'Creating student-focused learning materials',
+        'Teaching with Logic Pro, MuseScore, Soundtrap',
+        'Building confidence in evaluation and feedback'
+      ],
+      modules: [
+        { number: '01', title: 'IGCSE Music: Core Curriculum and Pedagogy', description: 'Foundation principles and teaching methodologies for IGCSE Music' },
+        { number: '02', title: 'Planning & Making your Own Resources', description: 'An approach to Unit Planning and Links with IGCSE assessments' },
+        { number: '03', title: 'Music Without Borders', description: 'A Study of World and Modern Genres in IGCSE Music' },
+        { number: '04', title: 'Understanding Western Art Music in IGCSE', description: 'How to approach performance and composition within the curriculum' },
+        { number: '05', title: 'IBDP Music: Framework and Pedagogy', description: 'Core concepts and teaching strategies for IB Diploma Programme Music' },
+        { number: '06', title: 'Teaching with IB Lens', description: 'Strategies and Concepts in IBDP Music' },
+        { number: '07', title: 'IB Assessment & Planning', description: 'Unit planning and understanding assessment procedures in IBDP Music' },
+        { number: '08', title: 'Filling the Gaps', description: 'An overview of IB and IGCSE programs across all school years' }
+      ],
+      requirements: [
+        'Existing Musicians & Teachers only: You should be proficient at one instrument minimum (voice is considered an instrument as well). Having some experience teaching music, whether as a hobby or at a school level, is preferred but not essential.',
+        'Commitment to Attendance: Attend the live sessions to ensure the best learning experience.',
+        'Revision & Course Work: You are expected to take notes, review the provided resources, and complete the weekly coursework on time to gain the maximum benefit from this course. Approximately 4 to 5 hours of study per week are recommended.',
+        'Limited Seats: Please enroll on a first-come, first-served basis.',
+        'Non-Refundable Fee: The course fee of ₹49,900.00 is non-refundable because the course is knowledge-based.'
+      ],
+      resources: [
+        'Live Sessions: 12-14 hours across 5-7 days (11:00 am - 1:00 pm & 4:00 - 6:00 pm)',
+        'Resources, examples, samples to help you through the course as well as your teaching journey tailored to Indian students and school expectations.',
+        'Guidance throughout first year via email or mutually agreed time for video meeting',
+        'Q&A Sessions: Dedicated time after each class to address doubts.'
+      ]
+    }
+  ];
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -55,6 +231,77 @@ export default function Home() {
     }
   }, [status]);
 
+  // Scroll detection for course sections
+  useEffect(() => {
+    const handleScroll = () => {
+      // The trigger point is just below the navbar (approximately 220-240px from top)
+      const navbarHeight = 220;
+      const triggerPoint = window.scrollY + navbarHeight;
+      
+      let activeIndex = 0;
+      
+      // Go through each course HEADER (not section) and find which one has reached the top
+      for (let i = headerRefs.length - 1; i >= 0; i--) {
+        const header = headerRefs[i].current;
+        if (header) {
+          // Get the actual position of the h2 header element
+          const headerTop = header.getBoundingClientRect().top + window.scrollY;
+          
+          // Only switch to this course if its H2 HEADER has reached/passed the trigger point
+          if (headerTop <= triggerPoint) {
+            activeIndex = i;
+            break;
+          }
+        }
+      }
+      
+      // Only update if the course has actually changed
+      setCurrentCourse(prev => {
+        if (prev !== activeIndex) {
+          return activeIndex;
+        }
+        return prev;
+      });
+    };
+
+    // Debounce scroll handler to avoid too many updates
+    let scrollTimeout: NodeJS.Timeout;
+    const debouncedScroll = () => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(handleScroll, 50);
+    };
+
+    // Handle scroll events with debouncing
+    window.addEventListener('scroll', debouncedScroll, { passive: true });
+    
+    // Handle hash changes (when clicking "Learn More" links)
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        const courseIndex = courses.findIndex(course => course.id === hash);
+        if (courseIndex !== -1) {
+          // Wait for scroll animation to complete before updating
+          setTimeout(() => {
+            setCurrentCourse(courseIndex);
+          }, 600);
+        }
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    
+    // Initial check (with delay to ensure sections are rendered)
+    const initialTimeout = setTimeout(handleScroll, 300);
+    
+    return () => {
+      window.removeEventListener('scroll', debouncedScroll);
+      window.removeEventListener('hashchange', handleHashChange);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      clearTimeout(initialTimeout);
+    };
+  }, [courses]);
+
   return (
     <div
       className="min-h-screen"
@@ -68,7 +315,7 @@ export default function Home() {
           <div className="relative flex flex-col lg:flex-row lg:justify-between gap-8 lg:gap-12 z-10">
             <div className="flex-1 lg:mt-16 text-center lg:text-right">
               <span className="inline-block rounded-full px-3 py-1 text-xs font-medium bg-brand-neutral-light text-brand-primary">
-                IB & IGCSE Music Educators Course
+                Music Teacher Training Courses
               </span>
               <h1 className="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl lg:text-5xl">
                 Master the Skills to Teach <br/>
@@ -79,16 +326,15 @@ export default function Home() {
                 <strong>Clarity. Purpose. Confidence.</strong>
               </p>
               <p className="mt-3 sm:mt-4 text-base sm:text-lg lg:text-xl leading-relaxed text-gray-700">
-                Get hands-on tools, expert guidance, and<br/> curriculum support
-                designed for IB/IGCSE <br /> music teachers.
+                Choose from 4 specialized courses designed for<br/> aspiring and experienced music educators.
               </p>
 
               <div className="mt-5 sm:mt-6">
                 <Link
-                  href="#what-youll-learn"
+                  href="#igcse-basic"
                   className="inline-block rounded-lg px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 text-center bg-brand-primary"
                 >
-                  Learn More
+                  Explore Courses
                 </Link>
               </div>
             </div>
@@ -241,390 +487,176 @@ export default function Home() {
           </div>
         </section>
 
-        {/* What You'll Learn */}
-        <section
-          id="what-youll-learn"
-          className="mt-12 sm:mt-16"
-          style={{ scrollMarginTop: "200px" }}
-        >
-          <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              What You&apos;ll Learn
-            </h2>
-            <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">
-              Comprehensive curriculum covering both IGCSE and IB frameworks
-            </p>
-          </div>
-          <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              "IGCSE Cambridge syllabus essentials",
-              "IBDP Music frameworks",
-              "Adapting global curricula for Indian classrooms",
-              "Building confidence in evaluation and feedback",
-              "Unit Design & Lesson Structure",
-              "Command terms, rubrics, and assessments",
-              "Creating student-focused learning materials",
-              "Teaching with Logic Pro, MuseScore, Soundtrap",
-              "Balancing performance, theory, and academics",
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-3 rounded-lg border border-brand-neutral-light p-4 transition-all hover:shadow-md hover:border-brand-primary"
-              >
-                <div
-                  className="rounded-full p-1 mt-1"
-                  style={{ backgroundColor: "rgba(3, 14, 80, 0.1)" }}
-                >
-                  <svg
-                    className="h-4 w-4 text-brand-primary"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <span className="text-gray-700 font-medium">{item}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+       
       </div>
 
       {/* Two Column Layout - Starts Here */}
       <div className="flex max-w-7xl mx-auto mt-12 px-4 sm:px-6">
         {/* Main Content Column */}
         <main className="flex-1 relative z-10">
-          {/* Course Modules */}
-          <section id="modules" style={{ scrollMarginTop: "200px" }}>
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                Course Modules
-              </h2>
-              <p className="mt-4 text-base sm:text-lg text-gray-600 px-4">
-                8 comprehensive modules covering IGCSE and IB Music education
-              </p>
-            </div>
-            <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-6 md:grid-cols-2">
-              {[
-                {
-                  number: "01",
-                  title: "IGCSE Music: Core Curriculum and Pedagogy",
-                  description:
-                    "Foundation principles and teaching methodologies for IGCSE Music",
-                },
-                {
-                  number: "02",
-                  title: "Planning & Making your Own Resources",
-                  description:
-                    "An approach to Unit Planning and Links with IGCSE assessments",
-                },
-                {
-                  number: "03",
-                  title: "Music Without Borders",
-                  description:
-                    "A Study of World and Modern Genres in IGCSE Music",
-                },
-                {
-                  number: "04",
-                  title: "Understanding Western Art Music in IGCSE",
-                  description:
-                    "How to approach performance and composition within the curriculum",
-                },
-                {
-                  number: "05",
-                  title: "IBDP Music: Framework and Pedagogy",
-                  description:
-                    "Core concepts and teaching strategies for IB Diploma Programme Music",
-                },
-                {
-                  number: "06",
-                  title: "Teaching with IB Lens",
-                  description: "Strategies and Concepts in IBDP Music",
-                },
-                {
-                  number: "07",
-                  title: "IB Assessment & Planning",
-                  description:
-                    "Unit planning and understanding assessment procedures in IBDP Music",
-                },
-                {
-                  number: "08",
-                  title: "Filling the Gaps",
-                  description:
-                    "An overview of IB and IGCSE programs across all school years",
-                },
-              ].map((module, index) => (
-                <div
-                  key={index}
-                  className="rounded-2xl bg-white p-6 shadow-sm transition-all"
+          {/* Course Sections */}
+          {courses.map((course, courseIndex) => (
+            <section 
+              key={course.id}
+              ref={courseRefs[courseIndex]}
+              id={course.id} 
+              className="mt-16 first:mt-0"
+              style={{ scrollMarginTop: "200px" }}
+            >
+              {/* Course Header */}
+              <div className="text-center mb-12">
+                <h2 
+                  ref={headerRefs[courseIndex]}
+                  className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="rounded-full px-3 py-1 text-sm font-bold text-white bg-brand-primary">
-                      {module.number}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-bold text-gray-900">
-                        {module.title}
-                      </h3>
-                      <p className="mt-2 text-gray-600">{module.description}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Requirements & Resources */}
-          <section className="mt-12 sm:mt-16">
-            <div className="grid gap-8 sm:gap-12 lg:grid-cols-2">
-              {/* Requirements */}
-              <div
-                className="rounded-2xl border-2 p-8"
-                style={{ backgroundColor: "#f7f6f7", borderColor: "#d7d4d4" }}
-              >
-                <h2 className="text-2xl font-bold text-gray-900">
-                  Requirements
+                  {course.title}
                 </h2>
-                <div className="mt-6 space-y-4">
-                  <div className="flex items-start gap-3">
+                <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                  {course.description}
+                </p>
+              </div>
+
+              {/* What You'll Learn */}
+              <div className="mb-16">
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-8">
+                  What You&apos;ll Learn
+                </h3>
+                <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {course.whatYouLearn.map((item, index) => (
                     <div
-                      className="rounded-full p-1 mt-1"
-                      style={{ backgroundColor: "#8b8c9b" }}
+                      key={index}
+                      className="flex items-start gap-3 rounded-lg border border-brand-neutral-light p-4 transition-all hover:shadow-md hover:border-brand-primary"
                     >
-                      <svg
-                        className="h-4 w-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                      <div
+                        className="rounded-full p-1 mt-1"
+                        style={{ backgroundColor: "rgba(3, 14, 80, 0.1)" }}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-                        />
-                      </svg>
+                        <svg
+                          className="h-4 w-4 text-brand-primary"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span className="text-gray-700 font-medium">{item}</span>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">
-                        Musical Proficiency
-                      </h3>
-                      <p className="text-sm text-gray-700">
-                        Be proficient at one instrument minimum (voice counts
-                        too) with some teaching experience preferred
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div
-                      className="rounded-full p-1 mt-1"
-                      style={{ backgroundColor: "#8b8c9b" }}
-                    >
-                      <svg
-                        className="h-4 w-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">
-                        Commitment to Attendance
-                      </h3>
-                      <p className="text-sm text-gray-700">
-                        Attend live sessions for the best learning experience
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div
-                      className="rounded-full p-1 mt-1"
-                      style={{ backgroundColor: "#8b8c9b" }}
-                    >
-                      <svg
-                        className="h-4 w-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">
-                        Study Commitment
-                      </h3>
-                      <p className="text-sm text-gray-700">
-                        4-5 hours of studying per week including notes,
-                        revision, and coursework
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    className="rounded-lg p-3 mt-4"
-                    style={{ backgroundColor: "#d7d4d4" }}
-                  >
-                    <p
-                      className="text-sm font-medium"
-                      style={{ color: "#0a2b56" }}
-                    >
-                      Limited seats available on first-come, first-serve basis.
-                      Course fee is non-refundable.
-                    </p>
-                  </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Resources */}
-              <div
-                className="rounded-2xl border-2 p-8"
-                style={{ backgroundColor: "#f7f6f7", borderColor: "#d7d4d4" }}
-              >
-                <h2 className="text-2xl font-bold text-gray-900">
-                  Resources Provided
-                </h2>
-                <div className="mt-6 space-y-4">
-                  <div className="flex items-start gap-3">
+              {/* Course Modules */}
+              <div className="mb-16">
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-8">
+                  Course Modules
+                </h3>
+                <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+                  {course.modules.map((module, index) => (
                     <div
-                      className="rounded-full p-1 mt-1"
-                      style={{ backgroundColor: "#8b8c9b" }}
+                      key={index}
+                      className="rounded-2xl bg-white p-6 shadow-sm transition-all hover:shadow-lg"
                     >
-                      <svg
-                        className="h-4 w-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                        />
-                      </svg>
+                      <div className="flex items-start gap-4">
+                        <div className="rounded-full px-3 py-1 text-sm font-bold text-white bg-brand-primary">
+                          {module.number}
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-lg font-bold text-gray-900">
+                            {module.title}
+                          </h4>
+                          <p className="mt-2 text-gray-600">{module.description}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">
-                        Live Sessions
-                      </h3>
-                      <p className="text-sm text-gray-700">
-                        12 hours across 4 days (11:00 am – 12:30 pm & 4:00 pm –
-                        5:30 pm)
-                      </p>
-                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Requirements & Resources */}
+              <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 mb-16">
+                {/* Requirements */}
+                <div
+                  className="rounded-2xl border-2 p-8"
+                  style={{ backgroundColor: "#f7f6f7", borderColor: "#d7d4d4" }}
+                >
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                    Requirements
+                  </h3>
+                  <div className="space-y-4">
+                    {course.requirements.map((requirement, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <div
+                          className="rounded-full p-1 mt-1"
+                          style={{ backgroundColor: "#8b8c9b" }}
+                        >
+                          <svg
+                            className="h-4 w-4 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        </div>
+                        <p className="text-sm text-gray-700">{requirement}</p>
+                      </div>
+                    ))}
                   </div>
-                  <div className="flex items-start gap-3">
-                    <div
-                      className="rounded-full p-1 mt-1"
-                      style={{ backgroundColor: "#8b8c9b" }}
-                    >
-                      <svg
-                        className="h-4 w-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">
-                        Teaching Materials
-                      </h3>
-                      <p className="text-sm text-gray-700">
-                        Resources, examples, and samples tailored to Indian
-                        students and school expectations
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div
-                      className="rounded-full p-1 mt-1"
-                      style={{ backgroundColor: "#8b8c9b" }}
-                    >
-                      <svg
-                        className="h-4 w-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">
-                        Ongoing Support
-                      </h3>
-                      <p className="text-sm text-gray-700">
-                        Guidance throughout first year via email or video
-                        meetings
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div
-                      className="rounded-full p-1 mt-1"
-                      style={{ backgroundColor: "#8b8c9b" }}
-                    >
-                      <svg
-                        className="h-4 w-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">
-                        Q&A Sessions
-                      </h3>
-                      <p className="text-sm text-gray-700">
-                        Dedicated time after each class to address doubts
-                      </p>
-                    </div>
+                </div>
+
+                {/* Resources */}
+                <div
+                  className="rounded-2xl border-2 p-8"
+                  style={{ backgroundColor: "#f7f6f7", borderColor: "#d7d4d4" }}
+                >
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                    Resources Provided
+                  </h3>
+                  <div className="space-y-4">
+                    {course.resources.map((resource, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <div
+                          className="rounded-full p-1 mt-1"
+                          style={{ backgroundColor: "#8b8c9b" }}
+                        >
+                          <svg
+                            className="h-4 w-4 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        </div>
+                        <p className="text-sm text-gray-700">{resource}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          ))}
+
 
           {/* Mobile Enroll Banner - Above Footer */}
           <section className="xl:hidden sm:p-6 mt-12">
-            <StickyEnrollBanner />
+            <StickyEnrollBanner course={courses[currentCourse]} />
           </section>
 
           {/* Testimonials */}
@@ -897,7 +929,7 @@ export default function Home() {
         {/* Right Column for Banner */}
         <aside className="hidden xl:block w-92 flex-shrink-0">
           <div className="sticky top-42 p-4 ml-8">
-            <StickyEnrollBanner />
+            <StickyEnrollBanner course={courses[currentCourse]} />
           </div>
         </aside>
       </div>
@@ -928,3 +960,4 @@ export default function Home() {
     </div>
   );
 }
+

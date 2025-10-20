@@ -70,25 +70,25 @@ export default function Header() {
             <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
               <div className="py-2">
                 <Link
-                  href="/#modules"
+                  href="/#igcse-basic"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-brand-primary transition-colors"
                 >
                   IGCSE Music Basic
                 </Link>
                 <Link
-                  href="/#modules"
+                  href="/#igcse-advanced"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-brand-primary transition-colors"
                 >
                   IGCSE Music Advanced
                 </Link>
                 <Link
-                  href="/#modules"
+                  href="/#ib-comprehensive"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-brand-primary transition-colors"
                 >
                   IB Music Comprehensive
                 </Link>
                 <Link
-                  href="/#modules"
+                  href="/#ib-igcse-educators"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-brand-primary transition-colors"
                 >
                   IB & IGCSE Music Educators Course
@@ -216,7 +216,7 @@ export default function Header() {
               {isCoursesSubmenuOpen && (
                 <div className="ml-4 space-y-1">
                   <Link
-                    href="/#modules"
+                    href="/#igcse-basic"
                     className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
@@ -226,7 +226,7 @@ export default function Header() {
                     IGCSE Music Basic
                   </Link>
                   <Link
-                    href="/#modules"
+                    href="/#igcse-advanced"
                     className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
@@ -236,7 +236,7 @@ export default function Header() {
                     IGCSE Music Advanced
                   </Link>
                   <Link
-                    href="/#modules"
+                    href="/#ib-comprehensive"
                     className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
@@ -246,7 +246,7 @@ export default function Header() {
                     IB Music Comprehensive
                   </Link>
                   <Link
-                    href="/#modules"
+                    href="/#ib-igcse-educators"
                     className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
                     onClick={() => {
                       setIsMobileMenuOpen(false);

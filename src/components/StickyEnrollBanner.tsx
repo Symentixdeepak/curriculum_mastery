@@ -3,8 +3,30 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
-export default function StickyEnrollBanner() {
+interface Course {
+  title: string;
+  price: string;
+  duration: string;
+  dates: string;
+}
+
+interface StickyEnrollBannerProps {
+  course?: Course;
+}
+
+export default function StickyEnrollBanner({ course }: StickyEnrollBannerProps) {
   const { data: session } = useSession()
+  
+  // Default course data (fallback to IB & IGCSE Music Educators Course)
+  const defaultCourse = {
+    title: 'IB & IGCSE Music Educators Course',
+    price: '₹49,900/-',
+    duration: '12 Hours',
+    dates: '1st Nov - 19th Nov'
+  };
+  
+  const currentCourse = course || defaultCourse;
+  
   return (
     <div className="w-full">
       <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-xl p-6">
@@ -18,7 +40,7 @@ export default function StickyEnrollBanner() {
               </svg>
             </div>
             <div>
-              <span className="font-semibold text-lg text-gray-900">₹49,900/-</span>
+              <span className="font-semibold text-lg text-gray-900">{currentCourse.price}</span>
             </div>
           </div>
 
@@ -30,7 +52,7 @@ export default function StickyEnrollBanner() {
             </div>
             <div>
               <span className="font-medium text-gray-900">Duration:</span>
-              <span className="text-gray-700 ml-1">12 Hours</span>
+              <span className="text-gray-700 ml-1">{currentCourse.duration}</span>
             </div>
           </div>
 
@@ -60,7 +82,7 @@ export default function StickyEnrollBanner() {
             </div>
             <div>
               <span className="font-medium text-gray-900">Dates:</span>
-              <span className="text-gray-700 ml-1">1st Nov - 19th Nov</span>
+              <span className="text-gray-700 ml-1">{currentCourse.dates}</span>
             </div>
           </div> 
         </div>
