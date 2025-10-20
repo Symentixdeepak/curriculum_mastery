@@ -1,61 +1,69 @@
-import { useState } from 'react';
+'use client'
 
-// TODO: Add Cashfree type to window when integration is ready
-// declare global {
-//   interface Window {
-//     Cashfree?: any;
-//   }
-// }
+import { useEffect } from 'react'
 
-export default function CashfreePayButton(props: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  const [loading, setLoading] = useState(false);
+interface CashfreePayButtonProps {
+  courseId: string;
+  courseTitle: string;
+  amount: string;
+  className?: string;
+  children: React.ReactNode;
+}
 
+export default function CashfreePayButton({ 
+  courseId, 
+  courseTitle, 
+  amount, 
+  className = "",
+  children 
+}: CashfreePayButtonProps) {
+  
   const handlePayment = async () => {
-    setLoading(true);
-    // Example order details - replace with real data as needed
-    const orderData = {
-      orderId: 'ORDER_' + Date.now(),
-      orderAmount: 1000, // INR
-      customerName: 'Test User',
-      customerEmail: 'test@example.com',
-      customerPhone: '9999999999',
+    // Debug logging
+    console.log('Course ID:', courseId);
+    console.log('Course Title:', courseTitle);
+    console.log('Amount received:', amount);
+    console.log('Amount type:', typeof amount);
+    
+    // Store course information in sessionStorage for Cashfree
+    const courseData = {
+      id: courseId,
+      title: courseTitle,
+      amount: amount,
+      timestamp: new Date().toISOString()
     };
-    try {
-      const res = await fetch('/api/payments/cashfree', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderData),
-      });
-      const data = await res.json();
-      // TODO: Implement Cashfree integration when configured
-      console.log('Payment data:', data);
-      alert('Cashfree integration not yet configured. Using mock payment flow.');
-    } catch {
-      alert('Payment error.');
-    } finally {
-      setLoading(false);
-    }
+    
+    sessionStorage.setItem('selectedCourse', JSON.stringify(courseData));
+    
+    // Create a unique order ID
+    const orderId = `${courseId}-${Date.now()}`;
+    
+    // Store order details
+    const orderData = {
+      orderId,
+      courseId,
+      courseTitle,
+      amount: parseInt(amount),
+      currency: 'INR',
+      timestamp: new Date().toISOString()
+    };
+    
+    sessionStorage.setItem('cashfreeOrder', JSON.stringify(orderData));
+    
+    // Navigate to Cashfree payment form without query parameters
+    const paymentUrl = 'https://payments.cashfree.com/forms?code=pay_form';
+    console.log('Payment URL:', paymentUrl);
+    
+    // Navigate to Cashfree payment form in same tab
+    window.location.href = paymentUrl;
   };
-
-  // TODO: Uncomment when Cashfree integration is ready
-  // function launchCheckout(paymentSessionId: string) {
-  //   if (window.Cashfree) {
-  //     const cashfree = new window.Cashfree(paymentSessionId);
-  //     cashfree.redirect();
-  //   }
-  // }
 
   return (
     <button
-      {...props}
       onClick={handlePayment}
-      disabled={loading || props.disabled}
-      className={
-        (props.className || '') +
-        ' px-6 py-3 bg-brand-primary text-white rounded-lg font-semibold hover:bg-brand-secondary transition-colors disabled:opacity-50 mt-6'
-      }
+      className={className}
     >
-      {loading ? 'Processing...' : 'Pay with Cashfree'}
+      {children}
     </button>
   );
 }

@@ -12,9 +12,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { courseId } = await req.json()
-    if (!courseId) {
-      return NextResponse.json({ error: 'Course ID required' }, { status: 400 })
+    const { courseId, courseTitle, amount, currency } = await req.json()
+    if (!courseId || !amount) {
+      return NextResponse.json({ error: 'Course ID and amount required' }, { status: 400 })
     }
 
     // Get user and course details
@@ -51,25 +51,36 @@ export async function POST(req: Request) {
     // Generate unique order ID
     const orderId = `order_${Date.now()}_${user.id.slice(-8)}`
 
-    // Create payment record
+    // Create payment record with the amount from frontend
     await prisma.payment.create({
       data: {
         orderId,
-        amount: course.price,
-        currency: course.currency,
+        amount: parseInt(amount),
+        currency: currency || 'INR',
         status: 'CREATED',
         userId: user.id,
         provider: 'cashfree'
       }
     })
 
-    // For now, return mock payment data until Cashfree is properly configured
-    // TODO: Replace with actual Cashfree integration
+    // Create Cashfree payment URL with the correct amount
+    const baseUrl = 'https://payments.cashfree.com/forms';
+    const params = new URLSearchParams({
+      code: 'pay_form',
+      amount: amount,
+      orderAmount: amount,
+      currency: currency || 'INR',
+      customerId: user.id,
+      orderId: orderId
+    });
+    
+    const paymentUrl = `${baseUrl}?${params.toString()}`;
+
     return NextResponse.json({
       orderId,
-      paymentSessionId: `mock_session_${orderId}`,
-      orderToken: `mock_token_${orderId}`,
-      mockPayment: true // Flag to indicate this is a mock payment
+      paymentUrl,
+      amount: parseInt(amount),
+      currency: currency || 'INR'
     })
 
   } catch (error) {

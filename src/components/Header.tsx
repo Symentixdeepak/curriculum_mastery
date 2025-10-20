@@ -16,6 +16,22 @@ export default function Header() {
     setIsMounted(true);
   }, []);
 
+  // Show loading state during hydration or when session is loading
+  const isLoading = !isMounted || status === "loading";
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.dropdown-container')) {
+        setIsCoursesSubmenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -103,8 +119,8 @@ export default function Header() {
             Contact
           </Link>
 
-          {!isMounted ? (
-            // Show loading state during hydration
+          {isLoading ? (
+            // Show loading state during hydration or session loading
             <div className="flex items-center gap-3">
               <div className="w-20 h-8 bg-gray-200 rounded animate-pulse"></div>
               <div className="w-16 h-8 bg-gray-200 rounded animate-pulse"></div>
@@ -139,7 +155,7 @@ export default function Header() {
                 Login
               </Link>
               <Link
-                href="https://payments.cashfree.com/forms?code=pay_form"
+                href="/pricing"
                 className="rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-md hover:shadow-lg transition-all bg-brand-primary mr-[50px]"
               >
                 Enroll Now
@@ -269,8 +285,8 @@ export default function Header() {
               Contact
             </Link>
 
-            {!isMounted ? (
-              // Show loading state during hydration
+            {isLoading ? (
+              // Show loading state during hydration or session loading
               <div className="px-4 py-2 space-y-2">
                 <div className="h-8 bg-gray-200 rounded animate-pulse"></div>
                 <div className="h-8 bg-gray-200 rounded animate-pulse"></div>
@@ -315,7 +331,7 @@ export default function Header() {
                   Login
                 </Link>
                 <Link
-                  href="https://payments.cashfree.com/forms?code=pay_form"
+                  href="/pricing"
                   className="w-full text-center rounded-lg px-4 py-2.5 text-white font-medium bg-brand-primary mr-[75px]"
                   onClick={() => {
                     setIsMobileMenuOpen(false);

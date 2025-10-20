@@ -14,7 +14,12 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentCourse, setCurrentCourse] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
   const { status } = useSession();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
   // Refs for course sections
   const courseRefs = [
@@ -220,6 +225,7 @@ export default function Home() {
   // Auto-trigger payment if redirected after sign up
   useEffect(() => {
     if (
+      isMounted &&
       typeof window !== "undefined" &&
       new URLSearchParams(window.location.search).get("paynow") === "1" &&
       status === "authenticated"
@@ -229,10 +235,12 @@ export default function Home() {
       ) as HTMLButtonElement | null;
       if (btn) btn.click();
     }
-  }, [status]);
+  }, [status, isMounted]);
 
   // Scroll detection for course sections
   useEffect(() => {
+    if (!isMounted) return;
+    
     const handleScroll = () => {
       // The trigger point is just below the navbar (approximately 220-240px from top)
       const navbarHeight = 220;
@@ -300,7 +308,7 @@ export default function Home() {
       if (scrollTimeout) clearTimeout(scrollTimeout);
       clearTimeout(initialTimeout);
     };
-  }, [courses]);
+  }, [courses, isMounted]);
 
   return (
     <div
@@ -648,6 +656,86 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
+                </div>
+              </div>
+
+              {/* Mobile Pricing Section - Same as Desktop Sticky Banner */}
+              <div className="md:hidden mt-8">
+                <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-xl p-6">
+                  <div className="space-y-4 mb-6">
+                    {/* Price */}
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full p-2 bg-brand-primary">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                        </svg>
+                      </div>
+                      <div>
+
+                        <span className="font-semibold text-lg text-gray-900">{course.price}</span>
+                      </div>
+                    </div>
+
+                    {/* Duration */}
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full p-2 bg-brand-primary">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-900">Duration:</span>
+                        <span className="text-gray-700 ml-1">{course.duration}</span>
+                      </div>
+                    </div>
+
+                    {/* Certificate */}
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full p-2 bg-brand-primary">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.723 1.745 3.42 3.42 0 01-2.812 2.812 3.42 3.42 0 00-1.946.723 3.42 3.42 0 01-3.976 0 3.42 3.42 0 00-1.946-.723 3.42 3.42 0 01-2.812-2.812 3.42 3.42 0 00-.723-1.745 3.42 3.42 0 010-4.438 3.42 3.42 0 00.723-1.745 3.42 3.42 0 012.812-2.812z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-900">Certificate:</span>
+                        <span className="text-gray-700 ml-1">Completion Certificate</span>
+                      </div>
+                    </div>
+
+                    {/* Live Online */}
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full p-2 bg-brand-primary">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-900">Format:</span>
+                        <span className="text-gray-700 ml-1">Live Online | English</span>
+                      </div>
+                    </div>
+
+                    {/* Dates */}
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full p-2 bg-brand-primary">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-900">Dates:</span>
+                        <span className="text-gray-700 ml-1">{course.dates}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Enroll Button */}
+                  <Link 
+                    href="/pricing"
+                    className="block w-full text-center rounded-lg px-6 py-3 text-lg font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 bg-brand-primary"
+                  >
+                    Enroll Now
+                  </Link>
                 </div>
               </div>
             </section>
