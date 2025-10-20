@@ -23,7 +23,17 @@ export default function EnrollButton() {
       <button onClick={onClick} className="rounded bg-emerald-600 px-4 py-2 text-white">
         Enroll Now
       </button>
-      {showPayment && <div className="mt-4"><CashfreePayButton /></div>}
+      {showPayment && (
+        <div className="mt-4">
+          <CashfreePayButton 
+            courseId="default-course"
+            courseTitle="Default Course"
+            amount="15000"
+          >
+            Pay Now
+          </CashfreePayButton>
+        </div>
+      )}
     </>
   )
 }
