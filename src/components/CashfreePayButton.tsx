@@ -50,8 +50,20 @@ export default function CashfreePayButton({
     
     sessionStorage.setItem('cashfreeOrder', JSON.stringify(orderData));
     
-    // Navigate to Cashfree payment form without query parameters
-    const paymentUrl = 'https://payments.cashfree.com/forms?code=pay_form';
+    // Determine the form code based on course ID
+    let formCode = 'pay_form'; // Default for Music Educators Course
+    
+    if (courseId === 'igcse-basic') {
+      formCode = 'basic_form';
+    } else if (courseId === 'igcse-advanced') {
+      formCode = 'advance_form';
+    } else if (courseId === 'ib-comprehensive') {
+      formCode = 'comprehensive_form';
+    }
+    // For 'ib-igcse-educators', keep the default 'pay_form'
+    
+    // Navigate to Cashfree payment form with specific form code
+    const paymentUrl = `https://payments.cashfree.com/forms?code=${formCode}`;
     console.log('Payment URL:', paymentUrl);
     
     // Navigate to Cashfree payment form in same tab

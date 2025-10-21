@@ -20,7 +20,7 @@ export default function PricingPage() {
       duration: '4 Hours',
       dates: '1st Nov onwards',
       description: 'This course introduces aspiring teachers to the fundamentals of the IGCSE Music curriculum, covering key concepts in music theory, listening, and performance.',
-      cashfreeLink: 'https://payments.cashfree.com/forms?code=pay_form'
+      cashfreeLink: 'https://payments.cashfree.com/forms?code=basic_form'
     },
     {
       id: 'igcse-advanced',
@@ -29,7 +29,7 @@ export default function PricingPage() {
       duration: '4 Hours',
       dates: '1st Nov onwards',
       description: 'This advanced course is designed for teachers aiming to deepen their expertise in the IGCSE Music curriculum.',
-      cashfreeLink: 'https://payments.cashfree.com/forms?code=pay_form'
+      cashfreeLink: 'https://payments.cashfree.com/forms?code=advance_form'
     },
     {
       id: 'ib-comprehensive',
@@ -38,7 +38,7 @@ export default function PricingPage() {
       duration: '6 Hours',
       dates: '1st Nov onwards',
       description: 'This comprehensive course is designed for aspiring IB Music teachers seeking to develop a deep understanding of the curriculum.',
-      cashfreeLink: 'https://payments.cashfree.com/forms?code=pay_form'
+      cashfreeLink: 'https://payments.cashfree.com/forms?code=comprehensive_form'
     },
     {
       id: 'ib-igcse-educators',

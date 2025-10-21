@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
 interface Course {
+  id?: string;
   title: string;
   price: string;
   duration: string;
@@ -89,7 +90,21 @@ export default function StickyEnrollBanner({ course }: StickyEnrollBannerProps) 
 
         {/* Enroll Button */}
         <Link 
-          href={session ? "/dashboard" : "https://payments.cashfree.com/forms?code=pay_form"}
+          href={session ? "/dashboard" : (() => {
+            // Determine the form code based on course ID
+            let formCode = 'pay_form'; // Default for Music Educators Course
+            
+            if (course?.id === 'igcse-basic') {
+              formCode = 'basic_form';
+            } else if (course?.id === 'igcse-advanced') {
+              formCode = 'advance_form';
+            } else if (course?.id === 'ib-comprehensive') {
+              formCode = 'comprehensive_form';
+            }
+            // For 'ib-igcse-educators', keep the default 'pay_form'
+            
+            return `https://payments.cashfree.com/forms?code=${formCode}`;
+          })()}
           className="block w-full text-center rounded-lg px-6 py-3 text-lg font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 bg-brand-primary"
         >
           {session ? "Go to Dashboard" : "Enroll Now"}
