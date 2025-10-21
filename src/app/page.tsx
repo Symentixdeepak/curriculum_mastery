@@ -65,9 +65,7 @@ export default function Home() {
         'Existing Musicians & Teachers only: You should be proficient at one instrument minimum (voice is considered an instrument as well). Having some experience teaching music, whether as a hobby or at a school level, is preferred but not essential.',
         'Commitment to Attendance: Attend the live sessions to ensure the best learning experience.',
         'Revision & Course Work: You are expected to take notes, review the provided resources, and complete the coursework on time to gain the maximum benefit from this course.',
-        'Study Time: Approximately 1 to 2 hours of daily study during the course days is recommended.',
-        'Limited Seats: Please enroll on a first-come, first-served basis.',
-        'Non-Refundable Fee: The course fee of ₹15,400/- is non-refundable because the course is knowledge-based.'
+        'Study Time: Approximately 1 to 2 hours of daily study during the course days is recommended.'
       ],
       resources: [
         'Live Sessions: 4 hours across 2 days (11:00 am - 1:00 pm & 4:00 - 6:00 pm)',
@@ -100,9 +98,7 @@ export default function Home() {
         'IGCSE Music Basic Course should have been successfully completed.',
         'Commitment to Attendance: Attend the live sessions to ensure the best learning experience.',
         'Revision & Course Work: You are expected to take notes, review the provided resources, and complete the coursework on time to gain the maximum benefit from this course.',
-        'Study Time: Approximately 1 to 2 hours of daily study during the course days is recommended.',
-        'Limited Seats: Please enroll on a first-come, first-served basis.',
-        'Non-Refundable Fee: The course fee of ₹15,400/- is non-refundable because the course is knowledge-based.'
+        'Study Time: Approximately 1 to 2 hours of daily study during the course days is recommended.'
       ],
       resources: [
         'Live Sessions: 4 hours across 2 days (11:00 am - 1:00 pm or 4:00 - 6:00 pm)',
@@ -140,9 +136,7 @@ export default function Home() {
         'Existing Musicians & Teachers only: You should be proficient at one instrument minimum (voice is considered an instrument as well). Having some experience teaching music, whether as a hobby or at a school level, is preferred but not essential.',
         'Commitment to Attendance: Attend the live sessions to ensure the best learning experience.',
         'Revision & Course Work: You are expected to take notes, review the provided resources, and complete the coursework on time to gain the maximum benefit from this course.',
-        'Study Time: Approximately 1 to 2 hours of daily study during the course days is recommended.',
-        'Limited Seats: Please enroll on a first-come, first-served basis.',
-        'Non-Refundable Fee: The course fee of ₹25,000/- is non-refundable because the course is knowledge-based.'
+        'Study Time: Approximately 1 to 2 hours of daily study during the course days is recommended.'
       ],
       resources: [
         'Live Sessions: 6 hours across 3 days (11:00 am - 1:00 pm or 4:00 - 6:00 pm)',
@@ -183,9 +177,7 @@ export default function Home() {
       requirements: [
         'Existing Musicians & Teachers only: You should be proficient at one instrument minimum (voice is considered an instrument as well). Having some experience teaching music, whether as a hobby or at a school level, is preferred but not essential.',
         'Commitment to Attendance: Attend the live sessions to ensure the best learning experience.',
-        'Revision & Course Work: You are expected to take notes, review the provided resources, and complete the weekly coursework on time to gain the maximum benefit from this course. Approximately 4 to 5 hours of study per week are recommended.',
-        'Limited Seats: Please enroll on a first-come, first-served basis.',
-        'Non-Refundable Fee: The course fee of ₹49,900.00 is non-refundable because the course is knowledge-based.'
+        'Revision & Course Work: You are expected to take notes, review the provided resources, and complete the weekly coursework on time to gain the maximum benefit from this course. Approximately 4 to 5 hours of study per week are recommended.'
       ],
       resources: [
         'Live Sessions: 12-14 hours across 5-7 days (11:00 am - 1:00 pm & 4:00 - 6:00 pm)',
@@ -656,6 +648,30 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
+                </div>
+              </div>
+
+              {/* Limited Seats & Non-Refundable Fee */}
+              <div className="mt-8 space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="rounded-full p-1" style={{ backgroundColor: "#8b8c9b" }}>
+                    <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    <strong>Limited Seats:</strong> Please enroll on a first-come, first-served basis.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="rounded-full p-1" style={{ backgroundColor: "#8b8c9b" }}>
+                    <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    <strong>Non-Refundable Fee:</strong> The course fee of {course.price} is non-refundable because the course is knowledge-based.
+                  </p>
                 </div>
               </div>
 
