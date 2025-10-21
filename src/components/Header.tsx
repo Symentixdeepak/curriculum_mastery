@@ -23,7 +23,10 @@ export default function Header() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      if (!target.closest('.dropdown-container')) {
+      // Don't close if clicking on courses button or its children
+      if (!target.closest('.dropdown-container') && 
+          !target.closest('[data-courses-button]') &&
+          !target.closest('[data-courses-submenu]')) {
         setIsCoursesSubmenuOpen(false);
       }
     };
@@ -216,8 +219,11 @@ export default function Header() {
             </Link>
             <div className="px-4 py-2">
               <button
+                data-courses-button
                 className="flex items-center justify-between w-full text-gray-700 font-medium mb-2 hover:text-brand-primary transition-colors"
-                onClick={() => setIsCoursesSubmenuOpen(!isCoursesSubmenuOpen)}
+                onClick={() => {
+                  setIsCoursesSubmenuOpen(!isCoursesSubmenuOpen);
+                }}
               >
                 Courses
                 <svg
@@ -230,47 +236,75 @@ export default function Header() {
                 </svg>
               </button>
               {isCoursesSubmenuOpen && (
-                <div className="ml-4 space-y-1">
-                  <Link
-                    href="/#igcse-basic"
-                    className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
+                <div data-courses-submenu className="ml-4 space-y-1">
+                  <button
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
                       setIsCoursesSubmenuOpen(false);
+                      setTimeout(() => {
+                        const element = document.getElementById('igcse-basic');
+                        if (element) {
+                          const rect = element.getBoundingClientRect();
+                          const scrollTop = window.scrollY + rect.top - 200; // Account for header
+                          window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                        }
+                      }, 100);
                     }}
                   >
                     IGCSE Music Basic
-                  </Link>
-                  <Link
-                    href="/#igcse-advanced"
-                    className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
+                  </button>
+                  <button
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
                       setIsCoursesSubmenuOpen(false);
+                      setTimeout(() => {
+                        const element = document.getElementById('igcse-advanced');
+                        if (element) {
+                          const rect = element.getBoundingClientRect();
+                          const scrollTop = window.scrollY + rect.top - 200;
+                          window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                        }
+                      }, 100);
                     }}
                   >
                     IGCSE Music Advanced
-                  </Link>
-                  <Link
-                    href="/#ib-comprehensive"
-                    className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
+                  </button>
+                  <button
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
                       setIsCoursesSubmenuOpen(false);
+                      setTimeout(() => {
+                        const element = document.getElementById('ib-comprehensive');
+                        if (element) {
+                          const rect = element.getBoundingClientRect();
+                          const scrollTop = window.scrollY + rect.top - 200;
+                          window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                        }
+                      }, 100);
                     }}
                   >
                     IB Music Comprehensive
-                  </Link>
-                  <Link
-                    href="/#ib-igcse-educators"
-                    className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
+                  </button>
+                  <button
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-brand-primary rounded-lg"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
                       setIsCoursesSubmenuOpen(false);
+                      setTimeout(() => {
+                        const element = document.getElementById('ib-igcse-educators');
+                        if (element) {
+                          const rect = element.getBoundingClientRect();
+                          const scrollTop = window.scrollY + rect.top - 200;
+                          window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                        }
+                      }, 100);
                     }}
                   >
                     IB & IGCSE Music Educators Course
-                  </Link>
+                  </button>
                 </div>
               )}
             </div>
